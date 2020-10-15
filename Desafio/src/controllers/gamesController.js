@@ -2,7 +2,7 @@ const musicasController = require('../../../Parte 1/src/controllers/musicasContr
 const games = require('../models/games.json')
 
 
-const updateName = (request, response) => {
+const updatePUT = (request, response) => {
     const gameUpdated = request.body;
     const id = parseInt(request.params.id);
 
@@ -15,8 +15,19 @@ const updateName = (request, response) => {
     response.status(200).send(games.find(game => game.id == id))
 }
 
+const updatePATCH = (request, response) => {
+    const gameBody = request.body
+    const id = parseInt(request.params.id)
+    const gameFind = games.find(item => item.id == id)
 
+    for(key in gameBody){
+        gameFind[key] = gameBody[key]
+    }
+    
+    response.status(200).send(games)
+}
 
 module.exports = {
-    updateName
+    updatePUT,
+    updatePATCH
 }
