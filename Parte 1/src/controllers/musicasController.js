@@ -14,7 +14,8 @@ const update = (request, response)=>{
     console.log(musicas)
 }
 
-const updatePatch = (request, response)=>{
+/* Exemplo com Object.keys
+ const updatePatch = (request, response)=>{
     const musicaAtualização = request.body
     const id = parseInt(request.params.id)
     const musicaParaAtualizar = musicas.find(item => item.id == id)
@@ -25,9 +26,20 @@ const updatePatch = (request, response)=>{
 
     response.status(200).send(musicas)
 
+} */
+
+const updatePatch = (request, response)=>{
+    const musicaAtualizacao = request.body
+    const id = parseInt(request.params.id)
+    const musicaParaAtualizar = musicas.find(item => item.id == id)
+
+    for(chave in musicaAtualizacao){
+        musicaParaAtualizar[chave] = musicaAtualizacao[chave]
+    }
+
+    response.status(200).send(musicas)
+
 }
-
-
 
 
 module.exports = {
